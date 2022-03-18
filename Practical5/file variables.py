@@ -11,7 +11,7 @@ elif d<e:
 else:
     print("the rate of new case in 2020 is the same sa in 2021")
 #w=x+y
-x = "I love "
-y = "the world"
-w = x +y
+x = True
+y = False
+w = x and y
 print(w)
