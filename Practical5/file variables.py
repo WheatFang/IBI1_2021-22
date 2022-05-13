@@ -11,7 +11,9 @@ elif d<e:
 else:
     print("the rate of new case in 2020 is the same sa in 2021")
 #w=x+y
-x = True
-y = False
+x = 3>2
+y = 1>2
 w = x and y
 print(w)
+# W should be true only if both X and Y are True
+
