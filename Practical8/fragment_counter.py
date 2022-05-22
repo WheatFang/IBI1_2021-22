@@ -1,11 +1,6 @@
 #for counting the number of fragments by enzyme
+import re
 seq = 'ATGCAATCGACTACGTCAATCGAGGGCC'
-n = 0
-for i in range (14):#we can obtain 14 (len(seq)-4) times
-    fn = seq[i:i+5]#Five Nucleotide(FN)sequences were obtained successively
-    if fn == "GAATC":
-        n= n+1#n reprecents the number of occurrences of a particular sequence
-    else:
-        n = n
-print(n)
+n = re.findall('GAATTC',seq) # obtain the cut ’GAATTC‘ and store them in a set
+print(len(n)+1) # the length of the set pus 1 is the number of fragments that can be cut by the enzyme
         
