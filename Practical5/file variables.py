@@ -10,6 +10,7 @@ elif d<e:
     print("the rate of new case in 2021 is greater than in 2020")
 else:
     print("the rate of new case in 2020 is the same sa in 2021")
+
 #w=x+y
 x = 3>2
 y = 1>2
