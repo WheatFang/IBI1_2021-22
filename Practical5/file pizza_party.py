@@ -6,3 +6,5 @@ while (p<64):#loop ends when the number of pizza pieces is greater than the tota
     p=(n*n+n+2)/2
     print(n)
 print("the number is", str(n))
+# By trial and error method,
+# the minimum number of tests can be obtained.
