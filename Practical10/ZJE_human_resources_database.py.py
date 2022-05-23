@@ -1,4 +1,4 @@
-class Staff:
+class Staff: # to "combine" all the information including name, location. role
     fn= ""
     ln = ""
     lo= ""
