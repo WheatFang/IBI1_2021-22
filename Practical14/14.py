@@ -5,13 +5,11 @@ import xml.dom.minidom
 import numpy as np
 import re
 import matplotlib.pyplot as plt
-DOMdo_obo = xml.dom.minidom.parse("go_obo.xml") # open the file
+DOMdo_obo = xml.dom.minidom.parse("C:\cygwin64\home\Wheat‘s Computer\IBI1_2021-22\Practical14\go_obo.xml") # open the file
 collection= DOMdo_obo.documentElement
 list_term = collection.getElementsByTagName("term")
 print('the total number of terms currently recorded in the Gene Ontology:', len(list_term)) # to show the total number of terms
 print(list_term[1])
-
-
 def getchild(term): #create a new function to obatain the childnodes for each "childnodes" of the term
     childnodes = 0
     for child in childnode_directory[term]:
@@ -33,14 +31,23 @@ for term in list_term:
     def_str = term_def[0].getElementsByTagName('defstr')[0].childNodes[0].data
     if 'translation' in def_str:
         translation_list.append(childnodes)
+
 # draw a chart describing the distribution of the number of childNodes across terms
-plt.boxplot(total_list)
+plt.boxplot(total_list,
+            showmeans=True,
+            flierprops={'marker': 'o', 'markerfacecolor': 'red', 'color': 'black'},
+            # Sets the outlier properties, dot shape, fill color, and border color
+            meanprops={'marker': 'D',
+                       'markerfacecolor': 'indianred'}, )  # Set the average point properties, point shape)
 plt.title("The distribution of child nodes across terms")
 plt.ylabel("the number of child nodes")
 plt.show()
 
 # draw a chart describing the distribution of the number of childNodes associated with ' translation'
-plt.boxplot(translation_list)
+plt.boxplot(translation_list,
+            showmeans = True,
+            flierprops = {'marker': 'o', 'markerfacecolor': 'red', 'color': 'black'},# Sets the outlier properties, dot shape, fill color, and border color
+            meanprops = {'marker': 'D', 'markerfacecolor': 'indianred'},) #Set the average point properties, point shape, fill color
 plt.title("The distribution of child nodes across terms associated with translation")
 plt.ylabel("the number of child nodes of all terms associated with translation")
 plt.show()
