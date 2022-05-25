@@ -10,22 +10,36 @@ collection= DOMdo_obo.documentElement
 list_term = collection.getElementsByTagName("term")
 print('the total number of terms currently recorded in the Gene Ontology:', len(list_term)) # to show the total number of terms
 print(list_term[1])
-def getchild(term): #create a new function to obatain the childnodes for each "childnodes" of the term
-    childnodes = 0
-    for child in childnode_directory[term]:
-        childnodes += getchild(child)
-    return childnodes+1 # includes the top childnode itself
+
 childnode_directory = {}
 total_list =[] # store the number of childnodes across all terms
 translation_list = [] # store the number of childnodes across all terms associated with ”translation“
+visit_dictionary = {}
+
+def getchild(term): #create a new function to obatain the childnodes for each "childnodes" of the term
+    if term in visit_dictionary:
+        return 0
+    visit_dictionary[term] = 1
+    childnodes = 0
+    if term in childnode_directory:
+        for child in childnode_directory[term]:
+            childnodes += getchild(child)
+    return childnodes +1
+
+#read the whole data to build parent-child relationship
+for term in list_term:
+    id = term.getElementsByTagName('id')[0].childNodes[0].data
+    for parent in term.getElementsByTagName('is_a'):
+        parent_id = parent.childNodes[0].data
+        if parent_id not in childnode_directory:
+            childnode_directory[parent_id] = [id]
+        else:
+            childnode_directory[parent_id].append(id)
+
 for term in list_term:
     id = term.getElementsByTagName("id")[0].childNodes[0].data
-    childnode_directory[id] = []
-    for child in term.getElementsByTagName('is_a'):
-        childnode_directory[id].append(child.childNodes[0].data)
-for term in list_term:
-    id = term.getElementsByTagName("id")[0].childNodes[0].data
-    childnodes = getchild(term.getElementsByTagName('id')[0].childNodes[0].data)# use the function getchilds to get the number of childNodes across all terms
+    visit_dictionary.clear()
+    childnodes = getchild(id)
     total_list.append(childnodes-1) # store the total number of childNodes across all terms
     term_def = term.getElementsByTagName('def')
     def_str = term_def[0].getElementsByTagName('defstr')[0].childNodes[0].data
